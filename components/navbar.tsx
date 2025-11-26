@@ -39,13 +39,10 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">V</span>
-              </div>
-              <span className="font-semibold text-lg hidden sm:inline text-foreground">Voyage</span>
+            <div className="flex items-center gap-3">
+              <img src="/images/logo.png" alt="CFAT Logo" className="w-8 h-8" />
+              <span className="font-semibold text-lg hidden sm:inline text-foreground">CFAT</span>
             </div>
           </Link>
 

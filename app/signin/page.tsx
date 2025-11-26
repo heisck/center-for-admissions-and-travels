@@ -14,7 +14,7 @@ export default function SignInPage() {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
-            <p className="text-muted-foreground">Sign in to your Voyage account to continue your journey.</p>
+            <p className="text-muted-foreground">Sign in to your CFAT account to continue your journey.</p>
           </div>
 
           {/* Auth Form */}
@@ -23,7 +23,7 @@ export default function SignInPage() {
           {/* Additional Info */}
           <div className="mt-12 p-6 bg-secondary rounded-lg text-center text-sm text-muted-foreground">
             <p>
-              New to Voyage?{" "}
+              New to CFAT?{" "}
               <Link href="/signup" className="text-primary hover:underline font-medium">
                 Create an account
               </Link>{" "}

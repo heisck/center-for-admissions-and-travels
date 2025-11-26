@@ -2,19 +2,20 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import ChatBubble from "@/components/chat-bubble"
 import PaymentOption from "@/components/payment-option"
+import { usePackage } from "@/context/package-context"
 import { packages } from "@/data/packages"
 import Link from "next/link"
 import { Check, ArrowLeft } from "lucide-react"
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const [selectedPackage, setSelectedPackage] = useState(packages[0])
+  const { selectedPackage, setSelectedPackage } = usePackage()
   const [selectedPayment, setSelectedPayment] = useState("card")
   const [formData, setFormData] = useState({
     fullName: "",
@@ -25,6 +26,13 @@ export default function CheckoutPage() {
     cvv: "",
   })
   const [isProcessing, setIsProcessing] = useState(false)
+
+  useEffect(() => {
+    if (!selectedPackage) {
+      const defaultPackage = packages[0]
+      setSelectedPackage(defaultPackage)
+    }
+  }, [selectedPackage, setSelectedPackage])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -38,9 +46,22 @@ export default function CheckoutPage() {
     // Simulate processing
     setTimeout(() => {
       setIsProcessing(false)
-      // In a real app, this would redirect to a success page
       alert("Booking successful! Check your email for confirmation.")
     }, 2000)
+  }
+
+  if (!selectedPackage) {
+    return (
+      <main>
+        <Navbar />
+        <div className="min-h-screen bg-background flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-muted-foreground mb-4">Loading package details...</p>
+          </div>
+        </div>
+        <Footer />
+      </main>
+    )
   }
 
   const tax = Math.round(selectedPackage.price * 0.1)
@@ -61,29 +82,19 @@ export default function CheckoutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column - Form */}
             <div className="lg:col-span-2 space-y-8">
-              {/* Package Selection */}
               <div className="bg-card border border-border rounded-lg p-6">
-                <h2 className="text-lg font-semibold mb-4">Select Package</h2>
-                <div className="space-y-3">
-                  {packages.map((pkg) => (
-                    <button
-                      key={pkg.id}
-                      onClick={() => setSelectedPackage(pkg)}
-                      className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
-                        selectedPackage.id === pkg.id
-                          ? "border-primary bg-primary/5"
-                          : "border-border hover:border-primary/30"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <p className="font-semibold">{pkg.title}</p>
-                          <p className="text-sm text-muted-foreground">{pkg.duration}</p>
-                        </div>
-                        <p className="font-semibold text-primary">${pkg.price.toLocaleString()}</p>
-                      </div>
-                    </button>
-                  ))}
+                <h2 className="text-lg font-semibold mb-4">Booking Details</h2>
+                <div className="p-4 rounded-lg border border-border flex items-start gap-4 bg-secondary/30">
+                  <img
+                    src={selectedPackage.image || "/placeholder.svg"}
+                    alt={selectedPackage.title}
+                    className="w-20 h-20 rounded-lg object-cover"
+                  />
+                  <div className="flex-1">
+                    <p className="font-semibold text-foreground">{selectedPackage.title}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{selectedPackage.duration}</p>
+                    <p className="text-primary font-semibold mt-2">${selectedPackage.price.toLocaleString()}</p>
+                  </div>
                 </div>
               </div>
 
@@ -129,34 +140,29 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Payment Method */}
               <div className="bg-card border border-border rounded-lg p-6">
                 <h2 className="text-lg font-semibold mb-4">Payment Method</h2>
                 <div className="space-y-3">
                   <PaymentOption
-                    icon="💳"
-                    name="Bank Card"
-                    description="Visa, Mastercard, Amex"
+                    name="Visa / Mastercard"
+                    description="Secure card payment"
                     isSelected={selectedPayment === "card"}
                     onSelect={() => setSelectedPayment("card")}
                   />
                   <PaymentOption
-                    icon="📱"
-                    name="MTN Mobile Money"
-                    description="Fast and secure"
+                    name="Mobile Money (MTN)"
+                    description="Fast and secure mobile payment"
                     isSelected={selectedPayment === "mtn"}
                     onSelect={() => setSelectedPayment("mtn")}
                   />
                   <PaymentOption
-                    icon="💰"
                     name="Vodafone Cash"
-                    description="Instant transfer"
+                    description="Instant transfer via Vodafone"
                     isSelected={selectedPayment === "vodafone"}
                     onSelect={() => setSelectedPayment("vodafone")}
                   />
                   <PaymentOption
-                    icon="🏦"
-                    name="AirtelTigo"
+                    name="AirtelTigo Money"
                     description="Money transfer service"
                     isSelected={selectedPayment === "airteltigo"}
                     onSelect={() => setSelectedPayment("airteltigo")}
@@ -286,7 +292,7 @@ export default function CheckoutPage() {
 
                 {/* Security Badge */}
                 <div className="text-center text-xs text-muted-foreground">
-                  <p>🔒 Secure payment powered by Stripe</p>
+                  <p>Secure payment processed safely</p>
                 </div>
               </div>
             </div>

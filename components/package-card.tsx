@@ -1,5 +1,8 @@
+"use client"
+
 import { ArrowRight, Globe, Briefcase, BookOpen } from "lucide-react"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { usePackage } from "@/context/package-context"
 
 interface PackageCardProps {
   id: string
@@ -22,6 +25,9 @@ export default function PackageCard({
   image,
   highlights,
 }: PackageCardProps) {
+  const router = useRouter()
+  const { setSelectedPackage } = usePackage()
+
   const getCategoryIcon = () => {
     switch (category) {
       case "Travel":
@@ -42,6 +48,11 @@ export default function PackageCard({
       case "Academic":
         return "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400"
     }
+  }
+
+  const handleBookNow = () => {
+    setSelectedPackage({ id, title, category, price, description, duration, image, highlights })
+    router.push("/checkout")
   }
 
   return (
@@ -88,13 +99,13 @@ export default function PackageCard({
             <p className="text-sm text-muted-foreground">Starting from</p>
             <p className="text-2xl font-bold text-primary">${price.toLocaleString()}</p>
           </div>
-          <Link
-            href={`/packages/${id}`}
+          <button
+            onClick={handleBookNow}
             className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium text-sm group/btn"
           >
             Book Now
             <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
-          </Link>
+          </button>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ export default function SignUpPage() {
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold mb-2">Start Your Journey</h1>
             <p className="text-muted-foreground">
-              Create a Voyage account to unlock global opportunities in travel, work, and education.
+              Create a CFAT account to unlock global opportunities in travel, work, and education.
             </p>
           </div>
 

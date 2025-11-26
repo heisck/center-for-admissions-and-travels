@@ -3,6 +3,11 @@ import { Mail, Phone, MapPin } from "lucide-react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  /* Contact information is now editable from admin but has default values */
+  const defaultContact = {
+    email: "hello@cfat.com",
+    phone: "+1 (234) 567-890",
+  }
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -10,11 +15,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary-foreground rounded-lg flex items-center justify-center">
-                <span className="text-primary font-bold">V</span>
-              </div>
-              <span className="font-semibold text-lg">Voyage</span>
+            <div className="flex items-center gap-3">
+              <img src="/images/logo.png" alt="CFAT Logo" className="w-8 h-8" />
+              <span className="font-semibold text-lg">CFAT</span>
             </div>
             <p className="text-primary-foreground/80 text-sm">Your gateway to global opportunities.</p>
           </div>
@@ -69,14 +72,14 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <Mail size={16} />
-                <a href="mailto:hello@voyage.com" className="hover:underline">
-                  hello@voyage.com
+                <a href={`mailto:${defaultContact.email}`} className="hover:underline">
+                  {defaultContact.email}
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={16} />
-                <a href="tel:+1234567890" className="hover:underline">
-                  +1 (234) 567-890
+                <a href={`tel:${defaultContact.phone}`} className="hover:underline">
+                  {defaultContact.phone}
                 </a>
               </li>
               <li className="flex items-start gap-2">
@@ -88,7 +91,10 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-primary-foreground/20 pt-8 text-center text-sm text-primary-foreground/80">
-          <p>&copy; {currentYear} Voyage. All rights reserved. Built with precision and care.</p>
+          <p>
+            &copy; {currentYear} CFAT - Center for Admission and Travel. All rights reserved. Built with precision and
+            care.
+          </p>
         </div>
       </div>
     </footer>

@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Eye, EyeOff, Apple, Chrome } from "lucide-react"
 
@@ -11,6 +12,7 @@ interface AuthFormProps {
 }
 
 export default function AuthForm({ type }: AuthFormProps) {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
@@ -30,7 +32,11 @@ export default function AuthForm({ type }: AuthFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    localStorage.setItem("cfat_admin_logged_in", "true")
+    localStorage.setItem("cfat_user_email", formData.email)
     console.log(`${type} submitted:`, formData)
+    // Redirect to home after signup/signin
+    router.push("/")
   }
 
   const isSignIn = type === "signin"
