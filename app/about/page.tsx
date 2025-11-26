@@ -8,7 +8,7 @@ export default function AboutPage() {
     <main>
       <Navbar />
 
-      <HeroSection title="About Voyage" subtitle="Transforming lives through global opportunities since 2020." />
+      <HeroSection title="About Center for Admmission and Travel" subtitle="Transforming lives through global opportunities since 2020." />
 
       <section className="py-20 md:py-28 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -16,7 +16,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-bold mb-4">Our Story</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Founded in 2020, Voyage emerged from a simple belief: everyone deserves access to global opportunities.
+              Founded in 2020, Center for Admmission and Travel emerged from a simple belief: everyone deserves access to global opportunities.
               What started as a small team of travel enthusiasts and career coaches has grown into a comprehensive
               platform serving thousands of travelers, professionals, and students worldwide.
             </p>

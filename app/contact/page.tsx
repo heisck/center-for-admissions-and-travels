@@ -37,8 +37,8 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: "Email",
-      value: "hello@voyage.com",
-      href: "mailto:hello@voyage.com",
+      value: "hello@Center for Admmission and Travel.com",
+      href: "mailto:hello@Center for Admmission and Travel.com",
     },
     {
       icon: Phone,
